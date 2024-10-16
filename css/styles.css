@@ -56,10 +56,17 @@ body {
     text-decoration: none;
     margin: 0 10px;
     font-size: 16px;
+    ;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
 }
 
 .category-item:hover {
-    text-decoration: underline;
+    background-color: #ffffff;
+    border-radius: 5px;
 }
 
 /* Navbar Links */
@@ -68,10 +75,16 @@ body {
     margin-left: 20px;
     text-decoration: none;
     font-size: 16px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
 }
 
 .nav-link:hover {
-    text-decoration: underline;
+    background-color: #007bff;
+    border-radius: 5px;
 }
 
 .banner {
@@ -751,4 +764,57 @@ form label {
 .categories a:hover,
 .recent-tutorials a:hover {
     text-decoration: underline;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+    /* Minus the header height */
+}
+
+.profile-card {
+    background-color: #333;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.profile-image img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #555;
+}
+
+.name {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+}
+
+.email {
+    margin: 0.5rem 0;
+    color: #aaa;
+}
+
+.bio {
+    margin-bottom: 1.5rem;
+}
+
+.edit-profile-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+    background-color: #0056b3;
 }
