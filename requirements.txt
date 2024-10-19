@@ -1,0 +1,17 @@
+Features
+User-Friendly Design: Simple navigation with clean, modern layout.
+User Registration & Login: Easy sign-up for buyers and sellers.
+Profile Creation: Artisans can create profiles showcasing their crafts and story.
+Product Listings: Simple form for artisans to upload product details (photos, description, price).
+Search Bar: Quick search option for buyers to find specific crafts.
+Category Filters: Filter by craft type (pottery, jewelry, decor) or price range.
+Product Reviews: Buyers can leave reviews and rate products.
+Wishlist: Option for users to save products they like for later.
+Shopping Cart: Buyers can add multiple products and purchase in one go.
+Checkout System: Simple, secure payment gateway for credit/debit cards and online wallets, Upi.
+Order Tracking: Buyers can track their orders after purchase.
+Seller Dashboard: Artisans can manage orders, view sales, and update products.
+Social Media Integration: Share products or shop on social media platforms.
+Web-based: Only computer based website for a smooth experience.
+Featured Crafts Section: Showcase best-selling or highly-rated products.
+Blog Section: Artisan stories, craft tutorials, and marketplace news.
