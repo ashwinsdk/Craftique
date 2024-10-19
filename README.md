@@ -1,6 +1,7 @@
 CRAFTIQUE
 
-<img width="1456" alt="home" src="https://github.com/user-attachments/assets/5e3ccf9c-3094-422b-bf7c-8a0ef49c01a0">
+<img width="1470" alt="index" src="https://github.com/user-attachments/assets/20048789-3512-4a3c-82a3-8e583b75c8e9">
+
 
 
 CRAFTIQUE is a Handmade Craft Marketplace designed to give artisans a platform to showcase and sell their handmade crafts, such as pottery, jewelry, home decor, and more. Our platform connects talented artisans with people who appreciate and support handmade products.
