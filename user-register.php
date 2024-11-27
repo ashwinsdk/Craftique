@@ -1,49 +1,46 @@
 <?php
+
 session_start();
 require "mysqldbconn.php";
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $pass = md5($_POST['password']);
+    $cpass = md5($_POST['cpassword']);
 
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $pass = md5($_POST['password']);
-  $cpass= md5($_POST['cpassword']);
+    $select = "SELECT * FROM users WHERE email = '$email'";
 
-   $select = " SELECT * FROM users WHERE email = '$email' && password = '$pass' ";
+    $result = mysqli_query($conn, $select);
 
-   $result = mysqli_query($conn, $select);
-
-   if(mysqli_num_rows($result) > 0){
-    $error[] = '
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                user already exist!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-    ';
-
-   }else{
-
-      if($pass != $cpass){
+    if (mysqli_num_rows($result) > 0) {
         $error[] = '
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                password not matched!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-    ';
-      }else{
-         $insert = "INSERT INTO users(name,email,password) 
-         VALUES('$name','$email','$pass')";
-         $query=mysqli_query($conn, $insert);
-         if($query == true){
-          header('location:user-login.php');
-        }else{
-          echo 'failed';
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    User already exists!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        ';
+    } else {
+        if ($pass != $cpass) {
+            $error[] = '
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Passwords do not match!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+            ';
+        } else {
+            $insert = "INSERT INTO users (name, email, password, profile_picture) VALUES ('$name', '$email', '$pass', 'img/default-profile.jpg')";
+
+            $query = mysqli_query($conn, $insert);
+            if ($query) {
+                header('location:user-login.php'); // Redirect to login page
+            } else {
+                echo 'Registration failed';
+            }
         }
-      }
-   }
+    }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,18 +63,18 @@ if(isset($_POST['submit'])){
         </div>
         <div>
         <?php
-                  if(isset($error)){
-                    foreach($error as $error){
-                       echo $error;
-                    }
-                    }
-                  ?>
+            if (isset($error)) {
+                foreach ($error as $err) {
+                    echo $err;
+                }
+            }
+        ?>
         </div>
         <div class="login-box">
             <h2>User Register</h2>
             <form class="login-form" method="POST" action="">
                 <div class="input-group">
-                    <label for="email">Name</label>
+                    <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="input-group">
@@ -89,8 +86,8 @@ if(isset($_POST['submit'])){
                     <input type="password" id="password" name="password" required>
                 </div>
                 <div class="input-group">
-                    <label for="password">Confirm Password</label>
-                    <input type="password" id="ccpassword" name="cpassword" required>
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" id="cpassword" name="cpassword" required>
                 </div>
                 <button type="submit" name="submit">Create</button>
             </form>

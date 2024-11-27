@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +31,12 @@
             <a href="watchlist.html" class="nav-link">Watchlist</a>
             <a href="orders.html" class="nav-link">Orders</a>
             <a href="cart.html" class="nav-link">Cart</a>
-            <a href="user-register.php" class="nav-link">Sign In</a>
+
+            <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === true): ?>
+                <a href="profile.php" class="nav-link">Profile</a>
+            <?php else: ?>
+                <a href="user-register.php" class="nav-link">Sign In</a>
+            <?php endif; ?>
         </div>
     </nav>
 

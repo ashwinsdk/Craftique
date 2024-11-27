@@ -2,30 +2,30 @@
 session_start();
 require "mysqldbconn.php";
 
-if(isset($_POST['submit'])){
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $pass = md5($_POST['password']);
-  $sql = " SELECT * FROM users WHERE email = '$email' && password = '$pass' ";
+if (isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $pass = md5($_POST['password']);
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$pass'";
 
-  $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
 
-   if(mysqli_num_rows($result) > 0){
-    
-    $row = mysqli_fetch_array($result);
-    $_SESSION['user_name'] = $row['login_name'];
-    header('location:index.php');
-  }else{
-    $error[] = '
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                incorrect password or email
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-    ';
-  }
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $_SESSION['user_logged_in'] = true; // Set login session
+        $_SESSION['user_name'] = $row['name']; // Save user name for later use
+        header('location:index.php');
+    } else {
+        $error[] = '
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Incorrect password or email
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        ';
+    }
+}
 
+$_SESSION['user_email'] = $row['email'];
 
-};
 ?>
 
 <!DOCTYPE html>
@@ -49,12 +49,12 @@ if(isset($_POST['submit'])){
         </div>
         <div>
         <?php
-                  if(isset($error)){
-                    foreach($error as $error){
-                       echo $error;
-                    }
-                    }
-                  ?>
+            if (isset($error)) {
+                foreach ($error as $err) {
+                    echo $err;
+                }
+            }
+        ?>
         </div>
         <div class="login-box">
             <h2>User Login</h2>

@@ -1,3 +1,20 @@
+<?php
+session_start();
+require "mysqldbconn.php";
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
+    header('location:user-login.php'); // Redirect to login if not logged in
+    exit;
+}
+
+$user_name = $_SESSION['user_name'];
+$user_email = $_SESSION['user_email'];
+
+// Use session variable for the updated profile picture
+$profile_picture = $_SESSION['profile_picture']; //?? 'img/default-profile.jpeg';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,12 +29,11 @@
 
 <body>
     <nav class="navbar">
-        <div class="logo"><a href="index.html" style="text-decoration: none;color:white;">
+        <div class="logo"><a href="index.php" style="text-decoration: none; color:white;">
                 <p style="font-family: 'Bebas Neue';">Craftique</p>
             </a></div>
 
         <div class="nav-items">
-
             <div class="category-list">
                 <a href="blog.html" class="category-item">Blog</a>
                 <a href="tutorial-vid.html" class="category-item">Tutorial</a>
@@ -27,17 +43,17 @@
             <a href="watchlist.html" class="nav-link">Watchlist</a>
             <a href="orders.html" class="nav-link">Orders</a>
             <a href="cart.html" class="nav-link">Cart</a>
+            <a href="logout.php" class="nav-link">Logout</a>
         </div>
     </nav>
     <section class="profile-section">
         <div class="profile-card">
             <div class="profile-image">
-                <img src="img/profile.jpeg" alt="Profile Picture">
+                <img src="<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture">
             </div>
-            <h1 class="name">Ashwin Sudhakar</h1>
-            <p class="email">ashwinsudhakar@email.com</p>
-            <p class="bio"></p>
-            <a href="#" class="edit-profile-btn">Edit Profile</a>
+            <h1 class="name"><?php echo htmlspecialchars($user_name); ?></h1>
+            <p class="email"><?php echo htmlspecialchars($user_email); ?></p><br>
+            <a href="edit-profile.php" class="edit-profile-btn">Edit Profile</a>
         </div>
     </section>
 </body>
