@@ -13,17 +13,16 @@ if (isset($_POST['submit'])) {
         $row = mysqli_fetch_array($result);
         $_SESSION['user_logged_in'] = true; // Set login session
         $_SESSION['user_name'] = $row['name']; // Save user name for later use
+        echo '<script>alert("Successfully Logged in!");</script>';
         header('location:index.php');
     } else {
         $error[] = '
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    Incorrect password or email
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+        <script>
+        alert("Incorrect password or email!");
+        </script>
         ';
     }
 }
-
 $_SESSION['user_email'] = $row['email'];
 
 ?>

@@ -2,51 +2,43 @@
 session_start();
 require "mysqldbconn.php";
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
-    header('location:user-login.php'); // Redirect to login if not logged in
+    header('location:user-login.php'); 
     exit;
 }
 
 $user_email = $_SESSION['user_email'];
 
-// Fetch user details from the database
 $query = "SELECT * FROM users WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
-// Default profile picture if none is set
 $profile_picture = $user['profile_picture'] ?? 'img/default-profile.jpeg';
 $name = $user['name'];
 
-// Handle form submission
 if (isset($_POST['update-profile'])) {
     $updated_name = mysqli_real_escape_string($conn, $_POST['name']);
 
-    // Handle profile picture upload
     if (!empty($_FILES['profile_picture']['name'])) {
-        $profile_pic_name = time() . '_' . $_FILES['profile_picture']['name']; // Add timestamp to avoid conflicts
+        $profile_pic_name = time() . '_' . $_FILES['profile_picture']['name']; 
         $profile_pic_tmp = $_FILES['profile_picture']['tmp_name'];
         $profile_pic_path = 'img/uploads/' . $profile_pic_name;
 
-        // Move the uploaded file
         if (move_uploaded_file($profile_pic_tmp, $profile_pic_path)) {
             $profile_picture = $profile_pic_path;
         }
     }
 
-    // Update user data in the database
     $update_query = "UPDATE users SET 
                         name = '$updated_name', 
                         profile_picture = '$profile_picture' 
                      WHERE email = '$user_email'";
     
     if (mysqli_query($conn, $update_query)) {
-        // Update session variables to reflect changes
         $_SESSION['user_name'] = $updated_name;
         $_SESSION['profile_picture'] = $profile_picture;
 
-        header('location:profile.php'); // Redirect to the profile page
+        header('location:profile.php'); 
         exit;
     } else {
         $error_message = "Failed to update profile. Please try again.";

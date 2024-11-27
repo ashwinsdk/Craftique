@@ -15,18 +15,16 @@ if (isset($_POST['submit'])) {
 
     if (mysqli_num_rows($result) > 0) {
         $error[] = '
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    User already exists!
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+        <script>
+        alert("User already exists!");
+        </script>
         ';
     } else {
         if ($pass != $cpass) {
             $error[] = '
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        Passwords do not match!
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+        <script>
+        alert("Passwords do not match!");
+        </script>
             ';
         } else {
             $insert = "INSERT INTO users (name, email, password, profile_picture) VALUES ('$name', '$email', '$pass', 'img/default-profile.jpg')";
@@ -35,7 +33,7 @@ if (isset($_POST['submit'])) {
             if ($query) {
                 header('location:user-login.php'); // Redirect to login page
             } else {
-                echo 'Registration failed';
+                echo '<script>alert("Registration failed!");</script>';
             }
         }
     }

@@ -18,9 +18,9 @@ if(isset($_POST['submit'])){
     header('location:seller.php');
   }else{
     $error[] = '
-    <div>
-    <strong>Incorrect Password or email!</strong> Enter correct email and password.
-    </div>
+    <script>
+  alert("Hello! I am an alert box!");
+</script>
     ';
   }
 

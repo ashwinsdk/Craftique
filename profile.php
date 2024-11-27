@@ -2,17 +2,14 @@
 session_start();
 require "mysqldbconn.php";
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
-    header('location:user-login.php'); // Redirect to login if not logged in
-    exit;
+    header('location:user-login.php'); 
 }
 
 $user_name = $_SESSION['user_name'];
 $user_email = $_SESSION['user_email'];
 
-// Use session variable for the updated profile picture
-$profile_picture = $_SESSION['profile_picture']; //?? 'img/default-profile.jpeg';
+$profile_picture = $_SESSION['profile_picture'] ?? 'img/default-profile.jpg'; 
 ?>
 
 <!DOCTYPE html>
