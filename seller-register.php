@@ -15,29 +15,27 @@ if(isset($_POST['submit'])){
 
    if(mysqli_num_rows($result) > 0){
     $error[] = '
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                seller already exist!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
+        <script>
+        alert("seller already exists!");
+        </script>
     ';
 
    }else{
 
       if($pass != $cpass){
         $error[] = '
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                password not matched!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
+        <script>
+        alert("Passwords do not match!");
+        </script>
     ';
       }else{
-         $insert = "INSERT INTO seller(name,email,password) 
-         VALUES('$name','$email','$pass')";
-         $query=mysqli_query($conn, $insert);
-         if($query == true){
-          header('location:seller-login.php');
-        }else{
-          echo 'failed';
+        $insert = "INSERT INTO seller (name, email, password, profile_picture) VALUES ('$name', '$email', '$pass', 'img/default-profile.jpg')";
+
+        $query = mysqli_query($conn, $insert);
+        if ($query) {
+            header('location:seller-login.php'); // Redirect to login page
+        } else {
+            echo '<script>alert("Registration failed!");</script>';
         }
       }
    }
@@ -53,7 +51,7 @@ if(isset($_POST['submit'])){
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="css/styles-login.css">
     <link href='https://fonts.googleapis.com/css?family=Bebas Neue' rel='stylesheet'>
-    <title>User-Register</title>
+    <title>seller-Register</title>
 </head>
 
 <body>

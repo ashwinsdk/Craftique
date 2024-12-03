@@ -1,31 +1,29 @@
 <?php
 session_start();
-
 require "mysqldbconn.php";
 
-if(isset($_POST['submit'])){
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $pass = md5($_POST['password']);
-  $sql = " SELECT * FROM seller WHERE email = '$email' && password = '$pass' ";
+if (isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $pass = md5($_POST['password']);
+    $sql = "SELECT * FROM seller WHERE email = '$email' AND password = '$pass'";
 
-  $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
 
-   if(mysqli_num_rows($result) > 0){
-    
-    $row = mysqli_fetch_array($result);
-    $_SESSION['user_name'] = $row['login_name'];
-    header('location:seller.php');
-  }else{
-    $error[] = '
-    <script>
-  alert("Hello! I am an alert box!");
-</script>
-    ';
-  }
-
-
-};
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        $_SESSION['seller_logged_in'] = true; // Set login session
+        $_SESSION['seller_name'] = $row['name']; // Save seller name for later use
+        echo '<script>alert("Successfully Logged in!");</script>';
+        header('location:seller.php');
+    } else {
+        $error[] = '
+        <script>
+        alert("Incorrect password or email!");
+        </script>
+        ';
+    }
+}
+$_SESSION['seller_email'] = $row['email'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

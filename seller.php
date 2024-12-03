@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +20,11 @@
                 <p style="font-family: 'Bebas Neue';">Craftique</p>
             </a></div>
         <div class="nav-items">
-            <a href="profile.html" class="nav-link">Profile</a>
+            <?php if (isset($_SESSION['seller_logged_in']) && $_SESSION['seller_logged_in'] === true): ?>
+                <a href="seller-profile.php" class="nav-link">Profile</a>
+            <?php else: ?>
+                <a href="seller-register.php" class="nav-link">Sign In</a>
+            <?php endif; ?>
         </div>
     </nav>
     <section class="admin-dashboard">
